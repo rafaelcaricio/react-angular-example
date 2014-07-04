@@ -1,0 +1,25 @@
+{
+  "name": "react_angular",
+  "version": "0.0.0",
+  "authors": [
+    "Rafael Caricio <rafael.jacinto@gmail.com>"
+  ],
+  "main": "index.html",
+  "keywords": [
+    "angular",
+    "react"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.19",
+    "react": "~0.10.0"
+  }
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="myApp" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ReactJS and AngularJS</title>
+</head>
+<body>
+
+  <div ng-controller="SimpleCtrl">
+    <hello-world bind="name"></hello-world>
+    <input type="text" ng-model="name" />
+  </div>
+
+
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/react/react.js"></script>
+  <script src="bower_components/react/JSXTransformer.js"></script>
+  <script type="text/jsx">
+    /** @jsx React.DOM */
+    window.Hello = React.createClass({
+      render: function() {
+        return <div>Hello {this.props.name}</div>;
+      }
+    });
+
+    for (var i=0; i < (whenReactLoaded || []).length; i++) {
+      whenReactLoaded[i]();
+    }
+  </script>
+
+  <script type="text/javascript">
+    var myApp = angular.module('myApp', []);
+    window.whenReactLoaded = [] || window.whenReactLoaded;
+
+    myApp.controller('SimpleCtrl', ['$scope', function($scope) {
+      $scope.name = "Rafael";
+    }]);
+
+    myApp.directive('helloWorld', function() {
+      return {
+        restrict: 'E',
+        scope: {
+          'bind': '='
+        },
+        link: function($scope, $element) {
+          whenReactLoaded.push(function() {
+            React.renderComponent(Hello({name: $scope.bind}), $element[0]);
+            $scope.$watch('bind', function(newVal) {
+              React.renderComponent(Hello({name: newVal}), $element[0]);
+            });
+          });
+        }
+      };
+    });
+  </script>
+</body>
+</html>
